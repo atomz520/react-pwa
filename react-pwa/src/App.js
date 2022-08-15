@@ -3,6 +3,11 @@ import React, { useState } from 'react'
 import { fetchWeather } from './api/FetchWeather'
 import './App.css'
 
+import About from './About'
+import Users from './Users'
+
+import { Link, Route, BrowserRouter as Router, Routes} from 'react-router-dom'
+
 function App() {
   const [query, setQuery] = useState('');
   const [weather, setWeather] = useState({});
@@ -17,6 +22,7 @@ function App() {
 
   return (
     <div className="main-container">
+      <h1 style={{color: 'white'}}>Input a city to find out it's current weather</h1>
       <input
         type="text"
         className="search"
@@ -25,6 +31,15 @@ function App() {
         onChange={(e) => setQuery(e.target.value)}
         onKeyPress={search}
       />
+      <Router>
+        <Link to="/about">About</Link>
+        <Link to="/users">Users</Link>
+        <Routes>
+          <Route path="/about" element={<About />}></Route>
+          <Route path="/users" element={<Users />}></Route>
+        </Routes>
+      </Router>
+      <About />
       {weather.main && (
         <div className="city">
           <h2 className="city-name">
